@@ -1,0 +1,28 @@
+INCLUDE "divisor_clock_des.inc";
+SUBDESIGN registrador_deslocamento(
+	clock		: INPUT; 
+	Q[4..1]	: OUTPUT; 	 
+)
+VARIABLE
+	d[4..1] : dff;
+	p : divisor_clock_des;
+	
+BEGIN
+	defaults
+	d[].d = GND;
+	end defaults;
+	p.clock = clock;
+	d[].clk = p.clk_out;
+	if d[].q == GND then d[1].d = VCC;
+	else
+	d[1].d = d[4].q;
+	d[2].d = d[1].q;
+	d[3].d = d[2].q;
+	d[4].d = d[3].q;
+	end if;
+	Q[] = d[].q;
+END;
+	
+
+
+

@@ -1,0 +1,19 @@
+SUBDESIGN led_botoes2 (
+	key[1] 	 : INPUT;
+	clock		 : INPUT; --50MHz
+	led[4..1] : OUTPUT;
+)
+VARIABLE
+   contador[6..1] : TFF;
+	
+BEGIN 
+		DEFAULTS
+			contador[].q='0';
+		END DEFAULTS;
+		contador[].clk = clock AND key[1];
+		contador[1].t = VCC;
+		contador[2].t = contador[1].q;
+		contador[3].t = contador[1].q AND contador[2].q;
+		contador[4].t = contador[1].q AND contador[2].q AND contador[3].q;
+		contador[5].t = contador[1].q AND contador[2].q AND contador[3].q AND contador[4].q;
+		contador[6].t = contador[1].q AND contador[2].q AND contador[3].q AND contador[4].q AND contador[5].q;

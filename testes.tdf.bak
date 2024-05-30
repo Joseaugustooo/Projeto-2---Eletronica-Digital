@@ -1,0 +1,9 @@
+SUBDESIGN led_botoes2 (
+	key[1] 	 : INPUT;
+	clock		 : INPUT; --50MHz
+	led[4..1] : OUTPUT;
+)
+BEGIN
+	led[1] = NOT(key[1]);
+END;
+	

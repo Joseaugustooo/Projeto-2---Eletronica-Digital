@@ -1,0 +1,7 @@
+SUBDESIGN sorteador(
+	clock : INPUT;
+	unidade[4..1] : OUTPUT;
+	dezena[3..1] : OUTPUT;
+)
+VARIABLE 
+	uni.dec

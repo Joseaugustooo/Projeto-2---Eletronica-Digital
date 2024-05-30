@@ -1,0 +1,32 @@
+TITLE "Divisor de Clock";
+CONSTANT overflow_f = 15; 
+CONSTANT n_bits_f= LOG2(overflow_f);
+SUBDESIGN cont_debouncer(
+	clock		: INPUT; --entrada com freq de clk_FPGA
+	clk_out	: OUTPUT; --saída com a freq desejada 	
+	SCLR : INPUT;
+	--ENABLE : INPUT;
+	--Cout : OUTPUT;
+
+)
+VARIABLE
+	cnt[n_bits_f..0] 	: DFF; --instancia de DFF
+	alt 		: TFF; --instancia de TFF
+BEGIN
+	
+	cnt[].clk	=	clock;
+	alt.clk		=	clock;
+	IF cnt[] == 0 THEN--reinicia o cnt		
+		cnt[].d = overflow_f;--valor inicial		
+		alt.t = VCC; --alterna a saída alt.q
+	ELSE --contador DOWN
+		cnt[].d = cnt[] - 1; --decrementa
+	END IF; 
+	clk_out = alt; --atribui alt.q a clk_out
+	IF SCLR == VCC then
+		cnt[].d = overflow_f;		
+		alt.t = VCC; 
+	END IF;
+		
+END;
+	

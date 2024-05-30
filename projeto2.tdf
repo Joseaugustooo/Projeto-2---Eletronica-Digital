@@ -1,0 +1,46 @@
+INCLUDE "registrador_deslocamento.inc";
+INCLUDE "sorteador.inc";
+INCLUDE "segmento.inc";
+INCLUDE "registrador_pipo.inc";
+INCLUDE "cont_sort.inc";
+INCLUDE "debouncer.inc";
+SUBDESIGN projeto2 (
+	key[1] 	 : INPUT;
+	clock		 : INPUT; --50MHz
+	led[4..1] : OUTPUT;
+	dig[4..1] : OUTPUT;
+	seg[7..0] : OUTPUT;
+)
+VARIABLE
+	BCU[4..1] : NODE;
+	s : sorteador;
+	sg : segmento;
+	reg[6..1] : registrador_pipo;
+	indice : NODE;
+	n_sorteio : NODE;
+	c : cont_sort;
+	d : debouncer;
+BEGIN 
+	DEFAULTS
+	led[] = VCC;
+	indice = 1;
+	n_sorteio = 1;
+	END DEFAULTS;
+	p.clock = clock;
+	s.clk = clock;
+	d.bottom = key[1];
+	IF d.out == GND then
+		s.bottom = GND;
+		reg[n_sorteio].d_uni[4..1]=s.unidade[4..1]; 
+		reg[n_sorteio].d_dec[4..1]=s.dezena[4..1];
+		n_sorteio = n_sorteio + 1;
+		d.out = VCC;
+	ELSE s.bottom = VCC;
+	END IF;
+	
+	
+	
+	seg[] = sg.s;
+	
+	
+END;

@@ -1,0 +1,19 @@
+INCLUDE "divisor_clock_des.inc";
+SUBDESIGN deslocamento(
+	clock		: INPUT; --entrada com freq de clk_FPGA
+	led[4..1]	: OUTPUT; --saída com a freq desejada 	 
+)
+VARIABLE
+	d[4..1] : dff;
+	p : divisor_clock_des;
+	
+BEGIN
+	d[].clk = clock;
+	p.clock = clock;
+	d[1].d = p.clk_out;
+	led[] = d[].q;
+END
+	
+
+
+

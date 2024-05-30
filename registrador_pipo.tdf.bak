@@ -1,0 +1,19 @@
+CONSTANT nbits = 32;
+SUBDESIGN registrador_pipo_nbits
+(
+	clk,clr,load : INPUT;
+	d[nbits..1] : INPUT;
+	q[nbits..1] : OUTPUT;
+)
+VARIABLE	
+	reg[nbits..1] : DFF;
+BEGIN
+	reg[].clk = clk;
+	reg[].clrn = !clr;
+	IF load THEN
+		reg[].d = d[];
+	ELSE
+		reg[].q = reg[].q;
+	END IF;
+	q[] = reg[].q;
+END;

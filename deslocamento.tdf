@@ -1,0 +1,22 @@
+INCLUDE "registrador_deslocamento.inc";
+SUBDESIGN deslocamento
+(	clk : INPUT;
+	dp1[4..1] : INPUT;
+	dp2[4..1] : INPUT;
+	dp3[4..1] : INPUT;
+	dp4[4..1] : INPUT;
+	bcd[4..1] : OUTPUT;
+	dg[4..1] : OUTPUT;
+)
+VARIABLE
+	p : registrador_deslocamento;
+BEGIN
+	p.clock = clk;
+	CASE p.Q[4..1] IS
+		WHEN B"1000" => bcd[] = dp1[4..1];
+		WHEN B"0100" => bcd[] = dp2[4..1];
+		WHEN B"0010" => bcd[] = dp3[4..1];
+		WHEN B"0001" => bcd[] = dp4[4..1];
+	END CASE;
+	dg = not(p.Q[4..1]);
+END;

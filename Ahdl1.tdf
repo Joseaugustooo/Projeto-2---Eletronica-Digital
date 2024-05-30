@@ -1,0 +1,30 @@
+-- Definição do registrador de deslocamento de 4 bits
+INCLUDE "library IEEE";
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity ShiftRegister is
+    Port (
+        clk : in STD_LOGIC;         -- Sinal de clock de entrada
+        rst : in STD_LOGIC;         -- Sinal de reset de entrada
+        data_in : in STD_LOGIC;     -- Dado de entrada
+        data_out : out STD_LOGIC    -- Dado de saída
+    );
+end entity ShiftRegister;
+
+architecture Behavioral of ShiftRegister is
+    signal shift_reg : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+begin
+    process (clk, rst)
+    begin
+        if rst = '1' then
+            -- Reset: zera o registrador
+            shift_reg <= "0000";
+        elsif rising_edge(clk) then
+            -- Deslocamento para a direita (shift right)
+            shift_reg <= data_in & shift_reg(3 downto 1);
+        end if;
+    end process;
+
+    -- Saída do registrador (bit mais à direita)
+    data_out <= shift_reg(0);
+end architecture Behavioral;

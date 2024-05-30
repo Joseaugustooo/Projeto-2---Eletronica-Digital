@@ -1,0 +1,10 @@
+SUBDESIGN projeto2 (
+	key[1] 	 : INPUT;
+	clock		 : INPUT; --50MHz
+	led[4..1] : OUTPUT;
+	dig[4..1] : OUTPUT;
+	seg[7..0] : OUTPUT;
+)
+VARIABLE 
+	d[3..1] : DFF;
+	
