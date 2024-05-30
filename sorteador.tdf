@@ -1,0 +1,47 @@
+INCLUDE "gera_pulso.inc";
+SUBDESIGN sorteador(
+	clk : INPUT;
+	bottom : INPUT;
+	tc : INPUT;
+	unidade[4..1] : OUTPUT;
+	dezena[4..1] : OUTPUT;
+
+)
+VARIABLE 
+	uni[4..1] : DFF;
+	dec[4..1] : DFF;
+	t : TFF;
+	p : gera_pulso;
+
+
+BEGIN	
+	DEFAULTS
+	uni[].d = GND;
+	dec[].d = GND;
+	t.t = VCC;
+	END DEFAULTS;
+	uni[].clk = clk;
+	dec[].clk = clk;
+	p.clk_in = clk;
+	p.pb_in = bottom;
+	t.clk = p.pulso_out or tc;
+	
+	if t.q == GND then
+		if(uni[].q < 9 and dec[].q < 6) then 
+			uni[].d = uni[].q +1;
+			dec[].d = dec[].q;
+		
+		elsif(uni[].q == 9 and dec[].q < 6)	then 
+			dec[].d = dec[].q +1;
+			uni[].d = 0;
+	
+		elsif(dec[].q == 6 and uni[].q ==0) then 
+			uni[].d=1; 
+			dec[].d=0;
+		end if;
+	else dec[].d = dec[].q; uni[].d = uni[].q;	
+	end if;
+	unidade[] = uni[].q;
+	dezena[] = dec[].q;
+END;
+	

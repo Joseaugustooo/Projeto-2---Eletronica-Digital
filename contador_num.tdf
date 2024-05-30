@@ -1,0 +1,59 @@
+SUBDESIGN contador_num
+(
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	c[3..1] : OUTPUT;
+)
+VARIABLE
+	cont[6..1] : DFF;
+	n[3..1] : DFF;
+	numero[3..1] : NODE;
+BEGIN
+	DEFAULTS
+		cont[].d = 0;
+	END DEFAULTS;
+	
+	IF q1_uni[4..1] != 0 or q1_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q2_uni[4..1] != 0 or q2_dec[4..1] != 0 then
+		cont[2].d = B"1";
+	ELSE cont[2].d = B"0";
+	END IF;
+	IF q3_uni[4..1] != 0 or q3_dec[4..1] != 0 then
+		cont[3].d = B"1";
+	ELSE cont[3].d = B"0";
+	END IF;
+	IF q4_uni[4..1] != 0 or q4_dec[4..1] != 0 then
+		cont[4].d = B"1";
+	ELSE cont[4].d = B"0";
+	END IF;
+	IF q5_uni[4..1] != 0 or q5_dec[4..1] != 0 then
+		cont[5].d = B"1";
+	ELSE cont[5].d = B"0";
+	END IF;
+	IF q6_uni[4..1] != 0 or q6_dec[4..1] != 0 then
+		cont[6].d = B"1";
+	ELSE cont[6].d = B"0";
+	END IF;
+	IF cont[].q == B"000000" THEN numero[] = B"000";
+	ELSIF cont[].q == B"100000" or cont[].q == B"010000" or cont[].q == B"001000" or cont[].q == B"000100" or cont[].q == B"000010" or cont[].q == B"000001" THEN numero[] = B"001";
+	ELSIF cont[].q == B"110000" or cont[].q == B"101000" or cont[].q == B"100100" or cont[].q == B"100010" or cont[].q == B"100001" or cont[].q == B"011000" or cont[].q == B"010100" or cont[].q == B"010010" or cont[].q == B"010001" or cont[].q == B"001100" or cont[].q == B"001010" or cont[].q == B"001001" or cont[].q == B"000110" or cont[].q == B"000101" or cont[].q == B"000011" THEN numero[] = B"010";
+	ELSIF cont[].q == B"111000" or cont[].q == B"110100" or cont[].q == B"110010" or cont[].q == B"110001" or cont[].q == B"101100" or cont[].q == B"101010" or cont[].q == B"101001" or cont[].q == B"100110" or cont[].q == B"100101" or cont[].q == B"100011" or cont[].q == B"011100" or cont[].q == B"011010" or cont[].q == B"011001" or cont[].q == B"010110" or cont[].q == B"010101" or cont[].q == B"010011" or cont[].q == B"001110" or cont[].q == B"001101" or cont[].q == B"001011" or cont[].q == B"000111" THEN numero[] = B"011";
+	ELSIF cont[].q == B"111100" or cont[].q == B"111010" or cont[].q == B"111001" or cont[].q == B"110110" or cont[].q == B"110101" or cont[].q == B"110011" or cont[].q == B"101110" or cont[].q == B"101101" or cont[].q == B"101011" or cont[].q == B"100111" or cont[].q == B"011110" or cont[].q == B"011101" or cont[].q == B"011011" or cont[].q == B"010111" or cont[].q == B"001111" THEN numero[] = B"100";
+	ELSIF cont[].q == B"111110" or cont[].q == B"111101" or cont[].q == B"111011" or cont[].q == B"110111" or cont[].q == B"101111" or cont[].q == B"011111" THEN numero[] = B"101";
+	ELSIF cont[].q == B"111111" THEN numero[] = B"110";
+	END IF;
+	c[] = NOT(numero[]);
+END;

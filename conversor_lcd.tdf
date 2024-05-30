@@ -1,0 +1,42 @@
+SUBDESIGN conversor_lcd
+(
+	clk : INPUT;
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	l_q1_uni[8..1] : OUTPUT;
+	l_q1_dec[8..1] : OUTPUT;
+	l_q2_uni[8..1] : OUTPUT;
+	l_q2_dec[8..1] : OUTPUT;
+	l_q3_uni[8..1] : OUTPUT;
+	l_q3_dec[8..1] : OUTPUT;
+	l_q4_uni[8..1] : OUTPUT;
+	l_q4_dec[8..1] : OUTPUT;
+	l_q5_uni[8..1] : OUTPUT;
+	l_q5_dec[8..1] : OUTPUT;
+	l_q6_uni[8..1] : OUTPUT;
+	l_q6_dec[8..1] : OUTPUT;	
+)
+BEGIN
+	l_q1_uni[] = 48 + q1_uni[];
+	l_q1_dec[] = 48 + q1_dec[];
+	l_q2_uni[] = 48 + q2_uni[];
+	l_q2_dec[] = 48 + q2_dec[];
+	l_q3_uni[] = 48 + q3_uni[];
+	l_q3_dec[] = 48 + q3_dec[];
+	l_q4_uni[] = 48 + q4_uni[];
+	l_q4_dec[] = 48 + q4_dec[];
+	l_q5_uni[] = 48 + q5_uni[];
+	l_q5_dec[] = 48 + q5_dec[];
+	l_q6_uni[] = 48 + q6_uni[];
+	l_q6_dec[] = 48 + q6_dec[];
+END;

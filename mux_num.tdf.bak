@@ -1,0 +1,32 @@
+INCLUDE "desloca_num.inc";
+SUBDESIGN mux_sort
+(	clk : INPUT;
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	Q_dec[4..1] : OUTPUT;
+	Q_uni[4..1] : OUTPUT;
+)
+VARIABLE
+	p : desloca_num;
+BEGIN
+	p.clock = clk;
+	CASE p.Q[4..1] IS
+		WHEN B"000001" => Q_dec[] = q1_dec[];Q_uni[] = q1_uni[];
+		WHEN B"000010" => Q_dec[] = q2_dec[];Q_uni[] = q2_uni[];
+		WHEN B"000100" => Q_dec[] = q3_dec[];Q_uni[] = q3_uni[];
+		WHEN B"001000" => Q_dec[] = q4_dec[];Q_uni[] = q4_uni[];
+		WHEN B"010000" => Q_dec[] = q5_dec[];Q_uni[] = q5_uni[];
+		WHEN B"100000" =>	Q_dec[] = q6_dec[];Q_uni[] = q6_uni[];
+	END CASE;
+	dg = not(p.Q[4..1]);
+END;

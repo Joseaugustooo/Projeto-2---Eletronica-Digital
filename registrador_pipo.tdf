@@ -1,0 +1,30 @@
+CONSTANT nbits = 4;
+SUBDESIGN registrador_pipo
+(
+	clk,load,reg : INPUT;
+	d_uni[nbits..1] : INPUT;
+	q_uni[nbits..1] : OUTPUT;
+	d_dec[nbits..1] : INPUT;
+	q_dec[nbits..1] : OUTPUT;
+
+)
+VARIABLE	
+	reg_u[nbits..1] : DFF;
+	reg_d[nbits..1] : DFF;
+BEGIN
+	DEFAULTS
+		reg_u[].d = 0;
+		reg_d[].d = 0;
+	END DEFAULTS;
+	reg_u[].clk = clk;
+	reg_d[].clk = clk;
+	IF load==VCC and reg == VCC THEN
+		reg_u[].d = d_uni[];
+		reg_d[].d = d_dec[];
+	ELSE
+		reg_u[].d = reg_u[].q;
+		reg_d[].d = reg_d[].q;
+	END IF;
+	q_uni[] = reg_u[].q;
+	q_dec[] = reg_d[].q;
+END;

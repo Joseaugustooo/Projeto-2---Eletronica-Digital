@@ -1,0 +1,15 @@
+SUBDESIGN mute
+(	
+	bottom : INPUT;
+	mute : OUTPUT;
+)
+VARIABLE
+	t : TFF;
+BEGIN
+	DEFAULTS
+		t.t = VCC;
+	END DEFAULTS;
+	t.clk = bottom;
+	mute = t.q;
+END;
+	

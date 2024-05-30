@@ -1,0 +1,46 @@
+INCLUDE "div_clock_5h.inc";
+INCLUDE "div_clock_2h.inc";
+INCLUDE "gera_pulso.inc";
+
+SUBDESIGN registrador_endereco
+(
+	pulso : INPUT;
+	clk : INPUT;
+	sorteio : INPUT;
+	tc : INPUT;
+	Q[6..1] : OUTPUT;
+)
+VARIABLE
+	d[6..1] : DFF;
+	p : gera_pulso;
+	s : div_clock_2h;
+	r : div_clock_5h;
+	t : TFF;
+	sort : TFF;
+
+BEGIN
+	defaults
+		d[].d = GND;
+		t.t = VCC;
+		sort.t = VCC;
+	end defaults;
+	d[].clk = ((s.clk_out AND NOT(t.q)) OR (r.clk_out AND t.q));
+	p.clk_in = clk;
+	s.clock = clk;
+	r.clock = clk;
+	p.pb_in = pulso;
+	t.clk = p.pulso_out;
+	sort.clk = sorteio or tc;
+	s.stop = sort.q;
+	r.stop = sort.q;
+	if d[].q == GND then d[1].d = VCC;
+	else
+	d[1].d = d[6].q;
+	d[2].d = d[1].q;
+	d[3].d = d[2].q;
+	d[4].d = d[3].q;
+	d[5].d = d[4].q;
+	d[6].d = d[5].q;
+	end if;
+	Q[] = d[].q;
+END;

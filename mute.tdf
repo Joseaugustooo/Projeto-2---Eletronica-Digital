@@ -1,0 +1,16 @@
+SUBDESIGN mute
+(	
+	buzzer : INPUT;
+	bottom : INPUT;
+	mute : OUTPUT;
+)
+VARIABLE
+	t : TFF;
+BEGIN
+	DEFAULTS
+		t.t = VCC;
+	END DEFAULTS;
+	t.clk = bottom;
+	mute = NOT(t.q) AND buzzer;
+END;
+	

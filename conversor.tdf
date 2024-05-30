@@ -1,0 +1,16 @@
+SUBDESIGN conversor
+(
+	endereco[6..1] : INPUT;
+	Q[4..1] : OUTPUT;
+)
+BEGIN
+	TABLE	
+		endereco		=> Q1,	Q2,	Q3,	Q4;
+		B"000001"	=>	1,		0, 	0,		0;
+		B"000010"	=>	0,		1, 	0,		0;
+		B"000100"	=>	1,		1, 	0,		0;
+		B"001000"	=>	0,		0, 	1,		0;
+		B"010000"	=>	1,		0, 	1,		0;
+		B"100000"	=>	0,		1, 	1,		0;
+	END TABLE;
+END;

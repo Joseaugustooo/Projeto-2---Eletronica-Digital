@@ -1,0 +1,28 @@
+INCLUDE "cont_test.inc";
+INCLUDE "gera_pulso.inc";
+SUBDESIGN debouncer
+( clock,bottom : INPUT;
+	out : OUTPUT;
+)
+
+VARIABLE 
+	cnt[3..1]: DFF;
+	c : cont_test;
+	alt : gera_pulso;
+
+BEGIN
+	c.clk = clock;
+	cnt[].clk = clock;
+	alt.clk_in = clock;
+	out = alt.pulso_out;
+	cnt[1].d = NOT(bottom);
+	cnt[2].d = cnt[1].q;
+	--cnt[3].d = cnt[2].q;
+	c.clr = NOT(cnt[1].q XNOR cnt[2].q);
+	--led[1]=cnt[3].q;
+	alt.pb_in=cnt[3].q;
+	IF c.tc == VCC then 
+		cnt[3].d = cnt[2].q;
+	else cnt[3].d = cnt[3].q;
+	END IF;
+END;

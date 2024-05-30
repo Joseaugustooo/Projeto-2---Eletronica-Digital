@@ -1,0 +1,42 @@
+INCLUDE "cont_5seg.inc";
+INCLUDE "gera_pulso.inc";
+SUBDESIGN desloca_num(
+	clock		: INPUT;
+	att : INPUT;
+	Q[6..1]	: OUTPUT; 	 
+)
+VARIABLE
+	d[6..1] : dff;
+	p : cont_5seg;
+	--t : TFF;
+	r : gera_pulso;
+	
+	
+BEGIN
+
+	defaults
+		d[].d = GND;
+	end defaults;
+	
+	r.clk_in = clock;
+	r.pb_in = att;
+	p.clk = clock;
+	d[].clk = clock;
+	p.reset = NOT(att);
+	
+	if d[].q == GND then d[1].d = VCC;
+	elsif (p.tc or r.pulso_out) then
+		d[1].d = d[6].q;
+		d[2].d = d[1].q;
+		d[3].d = d[2].q;
+		d[4].d = d[3].q;
+		d[5].d = d[4].q;
+		d[6].d = d[5].q;
+	else d[]=d[];
+	end if;
+	Q[] = d[].q;
+END;
+	
+
+
+

@@ -1,0 +1,25 @@
+SUBDESIGN tocador
+(
+	clk : INPUT;
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	parador : OUTPUT;
+	tocador : OUTPUT;
+)
+BEGIN
+	IF (q1_uni[]!=0 or q1_dec[] !=0) AND (q2_uni[]!=0 or q2_dec[] !=0) AND (q3_uni[]!=0 or q3_dec[] !=0) AND (q4_uni[]!=0 or q4_dec[] !=0) AND (q5_uni[]!=0 or q5_dec[] !=0) AND (q6_uni[]!=0 or q6_dec[] !=0) THEN
+		tocador = VCC;
+	ELSE tocador = GND;
+	END IF;
+	parador = NOT(tocador) and clk;
+END;

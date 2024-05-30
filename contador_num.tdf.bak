@@ -1,0 +1,59 @@
+SUBDESIGN contador_num
+(
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	numero[3..1] : OUTPUT;
+)
+VARIABLE
+	cont[6..1] : DFF;
+	n[3..1] : DFF;
+BEGIN
+	DEFAULTS
+		cont.d = 0;
+	END DEFAULTS;
+	
+	IF q1_uni[4..1] != 0 or q1_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q2_uni[4..1] != 0 or q2_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q3_uni[4..1] != 0 or q3_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q4_uni[4..1] != 0 or q4_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q5_uni[4..1] != 0 or q5_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	IF q6_uni[4..1] != 0 or q6_dec[4..1] != 0 then
+		cont[1].d = B"1";
+	ELSE cont[1].d = B"0";
+	END IF;
+	
+	CASE cont.q IS
+		when B"000000" => numero[] = B"000";
+		when B"100000" or B"010000" or B"001000" or B"000100" or B"000010" or B"000001" => numero[] = B"001";
+		when B"110000" or B"101000" or B"100100" or B"100010" or B"100001" or B"011000" or B"010100" or B"010010" or B"010001" or B"001100" or B"001010" or B"001001" or B"000110" or B"000101" or B"000011" => numero[] = B"010";
+		when B"111000" or B"110100" or B"110010" or B"110001" or B"101100" or B"101010" or B"101001" or B"100110" or B"100101" or B"100011" or B"011100" or B"011010" or B"011001" or B"010110" or B"010101" or B"010011" or B"001110" or B"001101" or B"001011" or B"000111" => numero[] = B"011";;
+		when B"111100" or B"111010" or B"111001" or B"110110" or B"110101" or B"110011" or B"101110" or B"101101" or B"101011" or B"100111" or B"011110" or B"011101" or B"011011" or B"010111" or B"001111" => numero[] = B"100";
+		when B"111110" or B"111101" or B"111011" or B"110111" or B"101111" or B"011111" => numero[] = B"101";
+		when B"111111" => numero[] = B"110";
+	END CASE;
+END;

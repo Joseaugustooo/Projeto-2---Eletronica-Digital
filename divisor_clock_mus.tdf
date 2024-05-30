@@ -1,0 +1,20 @@
+TITLE "Divisor de Clock";
+--período 1 segundo =  frequência de 1Hz
+--conta 25M pulsos(nível alto)+25M pulsos(nível baixo) a 50MHz
+--resultando num clock de 1Hz ou período de 1s
+
+SUBDESIGN divisor_clock_mus(
+	clock		: INPUT; --entrada com freq de clk_FPGA
+	clk_out	: OUTPUT; --saída com a freq desejada 	 
+)
+VARIABLE
+	alt 		: TFF; --instancia de TFF
+
+BEGIN
+	DEFAULTS
+		alt.t = VCC;
+	END DEFAULTS;
+	alt.clk = clock;
+	clk_out = alt.q;
+END;
+	

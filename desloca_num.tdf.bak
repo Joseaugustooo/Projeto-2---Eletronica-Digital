@@ -1,0 +1,30 @@
+INCLUDE "cont_5seg.inc";
+SUBDESIGN registrador_deslocamento_sort(
+	clock		: INPUT; 
+	Q[6..1]	: OUTPUT; 	 
+)
+VARIABLE
+	d[6..1] : dff;
+	p : cont_5seg;
+	
+BEGIN
+	defaults
+	d[].d = GND;
+	end defaults;
+	p.clk = clock;
+	d[].clk = p.tc;
+	if d[].q == GND then d[1].d = VCC;
+	else
+	d[1].d = d[6].q;
+	d[2].d = d[1].q;
+	d[3].d = d[2].q;
+	d[4].d = d[3].q;
+	d[5].d = d[4].q;
+	d[6].d = d[5].q;
+	end if;
+	Q[] = d[].q;
+END;
+	
+
+
+

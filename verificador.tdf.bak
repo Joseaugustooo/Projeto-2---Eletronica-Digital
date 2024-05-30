@@ -1,0 +1,36 @@
+SUBDESIGN verificador
+(	clk : INPUT;
+	uni_r[4..1] : INPUT;
+	dec_r[4..1] : INPUT;
+	q1_uni[4..1] : INPUT;
+	q1_dec[4..1] : INPUT;
+	q2_uni[4..1] : INPUT;
+	q2_dec[4..1] : INPUT;
+	q3_uni[4..1] : INPUT;
+	q3_dec[4..1] : INPUT;
+	q4_uni[4..1] : INPUT;
+	q4_dec[4..1] : INPUT;
+	q5_uni[4..1] : INPUT;
+	q5_dec[4..1] : INPUT;
+	q6_uni[4..1] : INPUT;
+	q6_dec[4..1] : INPUT;
+	Q_dec[4..1] : OUTPUT;
+	Q_uni[4..1] : OUTPUT;
+)
+VARIABLE
+	u[4..1] : TFF;
+	d[4..1] : TFF;
+BEGIN
+	DEFAULTS
+		u[].d = uni_r;
+		d[].d = dec_r;
+	IF (uni_r[]==q1_uni[] AND dec_r[] == q1_dec[]) OR (uni_r[]==q2_uni[] AND dec_r[] == q2_dec[]) OR (uni_r[]==q3_uni[] AND dec_r[] == q3_dec[]) OR (uni_r[]==q4_uni[] AND dec_r[] == q4_dec[]) OR (uni_r[]==q5_uni[] AND dec_r[] == q5_dec[]) OR (uni_r[]==q6_uni[] AND dec_r[] == q6_dec[]) THEN
+		u[].d = u[].q + 1 ;
+		d[].d = d[].q + 1 ;
+	ELSE 
+		u[].d = u[].q;
+		d[].d = d[].q;
+	END IF;
+	Q_uni[] = u[].q;
+	Q_dec[] = d[].q;
+END;
